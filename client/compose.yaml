@@ -1,0 +1,13 @@
+#secrets: 
+
+services:
+  server:
+    container_name: clich_client 
+    build:
+      context: .
+      target: final
+    ports: 
+      - 2000:2000
+    environment:
+      PORT: 8080
+

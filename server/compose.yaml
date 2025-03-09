@@ -1,0 +1,44 @@
+#secrets: 
+
+services:
+  db:
+    container_name: clich_db
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: clich
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 5s
+      timeout: 4s
+      retries: 5
+
+  server:
+    container_name: clich_server
+    build:
+      context: .
+      target: final
+    ports: 
+      - 8080:8080
+    environment:
+      PORT: 8080
+      DB_URL: "host=clich_db port=5432 user=postgres password=postgres dbname=clich sslmode=disable"
+    links:
+      - db
+    volumes:
+      - './:/src'
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db:
+    driver: local
+
+    
