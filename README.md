@@ -4,4 +4,4 @@ Running Locally:
 If running both parts of the application locally, you can run "docker compose up --build" in the server folder, and a simple "go run main.go" in the client folder. This will connect you to the server's websocket handler and you can begin sending messages.
 
 Networking:
-I've yet to host the server remotely, but some simple networking and environment variables changes/additions will allow you to run both application parts in their respective docker containers.
+I've yet to host the server remotely, but some simple networking and environment variables changes/additions will allow you to run both application parts in their respective docker containers and connect through multiple remote clients.
